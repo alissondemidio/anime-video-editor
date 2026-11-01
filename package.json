@@ -1,0 +1,11 @@
+{
+  "name": "anime-video-editor",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "pnpm --filter @ave/web dev",
+    "build": "pnpm --filter @ave/web build",
+    "check": "pnpm --filter @ave/core check && pnpm --filter @ave/templates check && pnpm --filter @ave/web check",
+    "test": "pnpm --filter @ave/core test"
+  }
+}
