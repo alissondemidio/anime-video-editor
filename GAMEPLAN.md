@@ -11,3 +11,7 @@
 Acceptance workflow: five-entry ranking → import media → generate/preview → select music → import/position narration → enable ducking → save/reopen → export music+narration → export music only → reuse template with replaced content. Analysis and comparison templates share the same schema and frame/audio engines.
 
 Final status and actual checks are recorded in `TESTING.md` and `FEATURES.md`; orchestration records include unavailable metrics explicitly rather than invented estimates.
+
+## Delivery status
+
+Implementation, integration, independent review, 34-test suite, production-browser workflow, Linux Electron smoke, real sample rendering, and Windows portable assembly/static verification are complete. Runtime acceptance on Windows and analysis of the absent reference video remain unverified. No publishing or default-branch merge occurred.

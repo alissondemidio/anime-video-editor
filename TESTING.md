@@ -1,6 +1,6 @@
 # Verification
 
-All results below are actual executions in the Linux managed workspace on 4 November 2026. No Windows host is attached. Final test counts and packaging results are updated at delivery.
+All results below are actual executions in the Linux managed workspace on 4 November 2026. No Windows host is attached. Final results: **34/34 automated tests pass**, the production-browser workflow passes (1.7 minutes under concurrent packaging load), strict TypeScript and production build pass, and an actual Linux Electron smoke passes. The unsigned Windows x64 portable executable was built successfully (approximately 174 MiB); packaged native binaries, hashes, UI, fonts, and music all passed static verification. Windows runtime remains untested.
 
 ## Commands
 
@@ -25,6 +25,14 @@ node scripts/verify-windows.mjs --packaged
 - **Production browser workflow:** create ranking with five entries; import and assign five PNGs; generate; select music; import WAV narration; edit timing/fades/ducking; drag narration and undo; save/reload/reopen; play/pause; export music+narration and music-only; FFprobe both 35-second 1280×720/30 FPS MP4s; replace media and reuse the template. Browser page errors fail the test.
 
 The narration fixture is a deterministic audio signal with speech-like amplitude gaps, not a human recording. It verifies sample placement, mixing, waveform handling, and ducking paths; it does not claim perceptual speech quality assessment. Original artwork and imported test images avoid copyrighted anime assets.
+
+## Desktop smoke and delivered evidence
+
+The actual Electron application was launched under a locally extracted Xvfb on Linux. The smoke verified `contextIsolation: true`, `nodeIntegration: false`, sandboxed preload, native-save-path bridge exposure, project create/save/reopen, real MP4 export/download, and clean shutdown after saving. FFprobe confirmed H.264/yuv420p, 320×180, 30 FPS and six frames. Native dialog interaction was not exercised. An initial headless Ozone attempt failed; conventional Xvfb succeeded.
+
+Reproduce on Linux after building with `node scripts/desktop-smoke.mjs` when Xvfb is installed, or set `XVFB_EXECUTABLE` to a local Xvfb binary. The script keeps app data and screenshots in `work/desktop-smoke`. No external reporting service is needed.
+
+The browser test produced two actual 35-second 720p MP4s, with music+narration and music-only. The separate `examples/ranking-demo.json` was also rendered through the bundled CLI into a 35-second original-art/music demo (1,050 frames). Delivered files are in `release/`; source archives exclude node_modules, local test media, credentials, and application data.
 
 ## Platform and resource limits
 

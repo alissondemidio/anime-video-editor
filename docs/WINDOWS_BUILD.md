@@ -34,7 +34,7 @@ node scripts/verify-windows.mjs --packaged release/win-unpacked
 
 Verification checks all three native resources for AMD64 PE32+ headers and compares bytes/SHA256 against the staging manifest. Package verification also checks the desktop executable's PE architecture; required main/preload/UI/canvas JavaScript files inside `app.asar`; environment-based runtime binary selection; and the font and four music files outside the archive.
 
-Preparation and staged verification were executed on Linux on 2026-11-04. All three Windows native resource files passed architecture and hash checks. This checks package contents and architecture only; Windows execution remains untested until the following workflow is performed on a Windows computer.
+Preparation, portable executable assembly, staged verification, and packaged verification were executed on Linux on 2026-11-04. The resulting unsigned portable executable is approximately 174 MiB. All three Windows native resource files passed architecture and hash checks. This checks package contents and architecture only; Windows execution remains untested until the following workflow is performed on a Windows computer.
 
 ## Required Windows runtime acceptance
 
