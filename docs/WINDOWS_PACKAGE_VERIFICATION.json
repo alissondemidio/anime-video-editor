@@ -1,0 +1,9 @@
+{
+  "target": "win32-x64",
+  "verifiedAt": "2026-11-04T16:21:44.571Z",
+  "directory": "/workspace/anime-video-editor/release/win-unpacked",
+  "packaged": true,
+  "binaryCount": 3,
+  "canvasVersion": "0.1.100",
+  "runtimeTestedOnWindows": false
+}

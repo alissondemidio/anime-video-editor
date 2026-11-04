@@ -1,0 +1,102 @@
+{
+  "name": "kuro-anime-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local-first, template-driven video studio",
+  "main": "dist/desktop/main.cjs",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev:server\" \"npm run dev:ui\"",
+    "dev:server": "node --watch --import tsx src/server/index.ts",
+    "dev:ui": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build && node scripts/build-desktop.mjs",
+    "start": "node --import tsx src/server/index.ts",
+    "desktop": "electron .",
+    "music": "node --import tsx scripts/generate-music.ts",
+    "render": "node --import tsx src/server/cli.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:unit": "node --import tsx --test tests/core.test.ts tests/audio.test.ts",
+    "test:e2e": "npm run build && playwright test",
+    "typecheck": "tsc --noEmit",
+    "package:win": "npm run build && node scripts/prepare-windows.mjs && electron-builder --win portable --x64 --publish never && node scripts/verify-windows.mjs --packaged",
+    "package:linux": "npm run build && electron-builder --linux dir --publish never",
+    "format": "prettier --write src tests scripts *.json *.ts *.md docs/*.md index.html",
+    "start:production": "node dist/server.cjs"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "express": "^5.1.0",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "lucide-react": "^0.468.0",
+    "multer": "^2.0.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/supertest": "^6.0.3",
+    "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
+    "electron": "^36.0.0",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.25.0",
+    "prettier": "^3.9.10",
+    "supertest": "^7.1.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vite": "^6.3.0"
+  },
+  "build": {
+    "appId": "studio.kuro.editor",
+    "productName": "Kuro Studio",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "public",
+        "to": "public"
+      }
+    ],
+    "asarUnpack": [
+      "node_modules/@napi-rs/**/*",
+      "node_modules/ffmpeg-static/**/*",
+      "node_modules/ffprobe-static/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false,
+      "extraResources": [
+        {
+          "from": "work/windows-resources/windows",
+          "to": "windows"
+        }
+      ],
+      "files": [
+        "dist/**/*",
+        "package.json",
+        "!node_modules/ffmpeg-static/ffmpeg",
+        "!node_modules/ffmpeg-static/ffmpeg.exe",
+        "!node_modules/ffprobe-static/bin/**/*",
+        "!node_modules/@napi-rs/canvas-*/**/*"
+      ]
+    },
+    "linux": {
+      "target": "dir"
+    },
+    "npmRebuild": false,
+    "compression": "normal"
+  },
+  "author": "Kuro Studio contributors"
+}
