@@ -147,3 +147,11 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Kuro local work, media and generated artifacts
+work/
+release/
+test-results/
+playwright-report/
+.kuro-data/
+*.mp4
